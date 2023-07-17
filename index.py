@@ -2,9 +2,12 @@ import os, streamlit as st
 
 # Uncomment to specify your OpenAI API key here (local testing only, not in production!), or add corresponding environment variable (recommended)
 # os.environ['OPENAI_API_KEY']= ""
+access_token = os.environ[OPENAI_API_KEY"]
 
 from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader, LLMPredictor, PromptHelper, ServiceContext
 from langchain.llms.openai import OpenAI
+
+
 
 # Define a simple Streamlit app
 st.title("Ask Llama")
@@ -30,7 +33,7 @@ if st.button("Submit"):
             documents = SimpleDirectoryReader('data').load_data()
             service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
             index = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
-            
+
             response = index.query(query)
             st.success(response)
         except Exception as e:
